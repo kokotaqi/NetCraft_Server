@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            color: white;
+            font-family: "微软雅黑";
+            font-family: Arial, Helvetica, sans-serif;
+            user-select: none;
+            z-index: 1;
+        }
+
+        body {
+            display: flex;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(42,42,42);
+            flex-direction: column;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width:100vw;
+            height: 5vh;
+        }
+        h1 {
+            font-size: 3vw;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: url("https://imgo.youxihezi.net/img2021/6/14/17/2021061433316377.jpg");
+        }
+        p {
+            text-indent: 2em;
+            font-size: 1vw;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: url("https://imgo.youxihezi.net/img2021/6/14/17/2021061433316377.jpg");
+        }
+        p:hover{
+            text-decoration: underline white 01px;
+            transition: all 0.2s;
+        }
+        #container {
+
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>NetCraft Server - The number of online player<sub style="font-size: 10px;">冬瓜著</sub></h1>
+    </header>
+    <article>
+        <p style="border-left: 3px solid red;margin:5px 0;margin-left: 5px;">需明细:此网站仅供学习与交流使用</p>
+        <p style="border-left: 3px solid red;margin-left: 5px;">造成任何直接或间接及损失，作者不承担任何责任</p>
+    </article>
+    <div style="height: 80vh;width: 95vw;margin-top: 1vw;margin-left: 2.5vw;" id="container">
+    </div>
+    <script>
+        var result
+        fetch('https://next.huya.com/serverlist_all')
+            .then(response => response.json())
+            .then(data => {
+                result = WriteResult(data)
+            })
+            .catch(error => {
+                console.error('发生错误', error);
+            });
+
+        function WriteResult(data) {
+            var result = [];
+            for (var i in data) {
+                var Server_Info = {};
+                var name = data[i]["name"];
+                var online_num = data[i]["online_num"];
+                Server_Info[name] = online_num;
+                result.push(Server_Info)
+            }
+            return result
+        }
+    </script>
+</body>
+
+</html>
